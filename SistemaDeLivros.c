@@ -47,16 +47,16 @@ void limpa_MSG(){
 void tela_livro(){
 
     gotoxy(10,10);
-    printf("Insira o ID do livro......: ");
+    printf("ID do livro....................: ");
 
     gotoxy(10,12);
-    printf("Insira o nome do titulo...: ");
+    printf("Nome do Titulo do Livro........: ");
 
     gotoxy(10,14);
-    printf("Insira o autor do livro...: ");
+    printf("Autor do Livro.................: ");
 
     gotoxy(10,16);
-    printf("Insira o ano do livro.....: ");
+    printf("Ano de Lancamento do Livro.....: ");
 }
 
 #define MAX 5
@@ -110,18 +110,18 @@ void adicionarLivro(Lista *l){
         printf("A sua lista esta cheia");
     } else {
 
-    gotoxy(38,10);
+    gotoxy(43,10);
     scanf("%d", &liv.id);
 
-    gotoxy(38,12);
+    gotoxy(43,12);
     fflush(stdin);
     fgets(liv.titulo, 50, stdin);
 
-    gotoxy(38,14);
+    gotoxy(43,14);
     fflush(stdin);
     fgets(liv.autor, 30, stdin);
 
-    gotoxy(38,16);
+    gotoxy(43,16);
     fflush(stdin);
     fgets(liv.ano, 50, stdin);
 
@@ -137,6 +137,11 @@ void adicionarLivro(Lista *l){
     printf("O livro foi cadastrado com sucesso!!!");
 
     getch();
+
+    system("cls");
+    tela();
+
+    return;
 
 }
 
@@ -178,7 +183,7 @@ void inserirPosicao(Lista *l){
     limpa_MSG();
 
     do {
-        gotoxy(38,10);
+        gotoxy(43,10);
         printf("Digite a posição em que deseja inserir o livro: ");
         scanf("%d", &posicao);
 
@@ -217,18 +222,18 @@ void inserirPosicao(Lista *l){
     gotoxy(25,6);
     printf("CADASTRE O LIVRO DESEJADO NA POSICAO %d ", posicao);
 
-    gotoxy(38,10);
+    gotoxy(43,10);
     scanf("%d", &liv.id);
 
-    gotoxy(38,12);
+    gotoxy(43,12);
     fflush(stdin);
     fgets(liv.titulo, 50, stdin);
 
-    gotoxy(38,14);
+    gotoxy(43,14);
     fflush(stdin);
     fgets(liv.autor, 30, stdin);
 
-    gotoxy(38,16);
+    gotoxy(43,16);
     fflush(stdin);
     fgets(liv.ano, 50, stdin);
 
@@ -316,20 +321,28 @@ void buscarLivro(Lista *l){
         tela_livro();
 
         gotoxy(32,6);
-        printf("CONSULTA LIVRO %d ", posicao);
+        printf("CONSULTA LIVRO %d ", l->liv[posicao].id);
 
 
-        gotoxy(38,10);
+        gotoxy(43,10);
         printf("%d", l->liv[posicao].id);
 
-        gotoxy(38,12);
+        gotoxy(43,12);
         printf("%s", l->liv[posicao].titulo);
 
-        gotoxy(38,14);
+        gotoxy(43,14);
         printf("%s", l->liv[posicao].autor);
 
-        gotoxy(38,16);
+        gotoxy(43,16);
         printf("%s", l->liv[posicao].ano);
+
+        gotoxy(2,23);
+        printf("Pressione qualquer tecla para continuar.....");
+        getch();
+
+        system("cls");
+        tela();
+
     } else {
         system("cls");
         tela();

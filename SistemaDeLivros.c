@@ -295,6 +295,63 @@ void removerLivro(Lista *l){
 
 void buscarLivro(Lista *l){
     
+    int codigo;
+    int posicao=0;
+
+    system("cls");
+    tela();
+
+    limpa_MSG();
+
+    gotoxy(2,23);
+    printf("Digite o ID do livro que deseja consultar: ");
+    scanf("%d", &codigo);
+
+    posicao = pesquisa(codigo, l);
+
+    if(posicao != -1){
+
+        system("cls");
+        tela();
+        tela_livro();
+
+        gotoxy(32,6);
+        printf("CONSULTA LIVRO %d ", posicao);
+
+
+        gotoxy(38,10);
+        printf("%d", l->liv[posicao].id);
+
+        gotoxy(38,12);
+        printf("%s", l->liv[posicao].titulo);
+
+        gotoxy(38,14);
+        printf("%s", l->liv[posicao].autor);
+
+        gotoxy(38,16);
+        printf("%s", l->liv[posicao].ano);
+    } else {
+        system("cls");
+        tela();
+
+        limpa_MSG();
+
+        gotoxy(2,23);
+        printf("ID do livro nao foi encontrada, tente novamente....");
+
+        getch();
+
+        system("cls");
+        tela();
+
+        limpa_MSG();
+
+        gotoxy(2,23);
+        printf("Pressione qualquer tecla para continuar....");
+
+        getch();
+    }
+
 }
 
 int main(){
@@ -339,7 +396,7 @@ int main(){
                 removerLivro(&l);
                 break;
             case 4:
-
+                buscarLivro(&l);
                 break;
             case 5:
 

@@ -9,7 +9,7 @@ void gotoxy(int x, int y){
     coord.Y = (short) y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-
+// **************************************************************************************************
 void tela(){
     int i, c;
 
@@ -29,10 +29,6 @@ void tela(){
     gotoxy(1,5);   printf("+");   gotoxy(79,5);  printf("+");
     gotoxy(1,22);  printf("+");   gotoxy(79,22); printf("+");
     gotoxy(1,24);  printf("+");   gotoxy(79,24); printf("+");
-
-    gotoxy(3,3);  printf("       ");
-
-
 
     gotoxy(3,2);  printf("Joao Victor dos Santos Bento");
     gotoxy(36,3);  printf("Sistema de Livros");
@@ -471,7 +467,6 @@ void buscarLivro(Lista *l){
     }
 
 }
-
 
 int main(){
 

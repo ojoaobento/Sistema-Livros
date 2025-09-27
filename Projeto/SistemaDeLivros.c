@@ -361,9 +361,8 @@ void removerLivro(Lista *l){
         system("cls");
         tela();
 
-        limpa_MSG();
         gotoxy(2,23);
-        printf("O Livro foi excluido com sucesso!");
+        printf("O Livro foi excluido com sucesso....");
 
         getch();
 
@@ -434,7 +433,7 @@ void buscarLivro(Lista *l){
         printf("%s", l->liv[posicao].ano);
 
         gotoxy(2,23);
-        printf("Pressione qualquer tecla para continuar.....");
+        printf("Pressione qualquer tecla para voltar ao menu principal.....");
         getch();
 
         system("cls");

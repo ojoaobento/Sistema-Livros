@@ -432,12 +432,19 @@ void buscarLivro(Lista *l){
         gotoxy(43,16);
         printf("%s", l->liv[posicao].ano);
 
-        gotoxy(2,23);
-        printf("Pressione qualquer tecla para voltar ao menu principal.....");
+        gotoxy(7,23);
+        printf("Realizando Consulta");
         getch();
 
         system("cls");
         tela();
+
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Pressione qualquer tecla para voltar ao menu principal....");
+        getch();
+
+        return;
 
     } else {
         system("cls");
@@ -459,6 +466,8 @@ void buscarLivro(Lista *l){
         printf("Pressione qualquer tecla para continuar....");
 
         getch();
+
+        return;
     }
 
 }
@@ -477,6 +486,10 @@ int main(){
     l.fim=0;
 
     do {
+
+        gotoxy(35,7);
+        printf("MENU PRINCIPAL");
+
         gotoxy(23,10);
         printf("1- Adicionar livro na biblioteca");
         gotoxy(23,11);
@@ -486,7 +499,7 @@ int main(){
         gotoxy(23,13);
         printf("4- Buscar livro pelo ID");
         gotoxy(23,14);
-        printf("5- Sair");
+        printf("5- Finalizar Programa");
 
         limpa_MSG();
         gotoxy(2,23);
@@ -509,12 +522,14 @@ int main(){
             case 5:
                 break;
             default:
-                limpa_MSG();
-                gotoxy(2,23);
+                system("cls");
+                tela();
+
+                gotoxy(7,23);
                 printf("Nenhuma opcao valida foi inserida......");
                 break;
         }
 
-} while(opcao != 7);
+} while(opcao >= 1 && opcao <= 4);
 
 }

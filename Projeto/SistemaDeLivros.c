@@ -33,6 +33,11 @@ void tela(){
     gotoxy(3,3);  printf("       ");
 
 
+
+    gotoxy(3,2);  printf("Joao Victor dos Santos Bento");
+    gotoxy(36,3);  printf("Sistema de Livros");
+    gotoxy(62,4); printf("Lista Estatica");
+
     gotoxy(2, 23);
     printf("MSG:");
 }
@@ -92,51 +97,63 @@ int pesquisa(int codigo, Lista *l){
 
 void adicionarLivro(Lista *l){
     reg_livros liv;
-
-    system("cls");
-
-    tela();
-    tela_livro();
-
-    gotoxy(32, 6);
-    printf("ADICIONANDO LIVRO");
+    int opcao=0;
 
 
-    if(l->fim >= MAX){
+    do {
+        if(l->fim >= MAX){
 
-        limpa_MSG();
+            limpa_MSG();
 
-        gotoxy(2,23);
-        printf("A sua lista esta cheia");
-    } else {
+            gotoxy(2,23);
+            printf("A sua lista esta cheia");
+        } else {
 
-    gotoxy(43,10);
-    scanf("%d", &liv.id);
+            system("cls");
 
-    gotoxy(43,12);
-    fflush(stdin);
-    fgets(liv.titulo, 50, stdin);
+            tela();
+            tela_livro();
 
-    gotoxy(43,14);
-    fflush(stdin);
-    fgets(liv.autor, 30, stdin);
+            gotoxy(32, 6);
+            printf("ADICIONANDO LIVRO");
 
-    gotoxy(43,16);
-    fflush(stdin);
-    fgets(liv.ano, 50, stdin);
 
-    }
+            gotoxy(43,10);
+            scanf("%d", &liv.id);
 
-    l->liv[l->fim] = liv;
+            gotoxy(43,12);
+            fflush(stdin);
+            fgets(liv.titulo, 50, stdin);
 
-    l->fim++;
+            gotoxy(43,14);
+            fflush(stdin);
+            fgets(liv.autor, 30, stdin);
 
-    limpa_MSG();
+            gotoxy(43,16);
+            fflush(stdin);
+            fgets(liv.ano, 50, stdin);
 
-    gotoxy(2,23);
-    printf("O livro foi cadastrado com sucesso!!!");
+            }
 
-    getch();
+            l->liv[l->fim] = liv;
+
+            l->fim++;
+
+            limpa_MSG();
+
+            gotoxy(2,23);
+            printf("O livro foi cadastrado com sucesso!!!");
+            getch();
+
+            system("cls");
+            tela();
+            limpa_MSG();
+
+            gotoxy(2,23);
+            printf("Deseja inserir outro(1-Sim, 2-Nao): ");
+            scanf("%d", &opcao);
+
+    } while(opcao != 2);
 
     system("cls");
     tela();
@@ -183,8 +200,10 @@ void inserirPosicao(Lista *l){
     limpa_MSG();
 
     do {
-        gotoxy(43,10);
-        printf("Digite a posição em que deseja inserir o livro: ");
+
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Digite a posicao em que deseja inserir o livro: ");
         scanf("%d", &posicao);
 
         system("cls");
@@ -220,7 +239,7 @@ void inserirPosicao(Lista *l){
     tela_livro();
 
     gotoxy(25,6);
-    printf("CADASTRE O LIVRO DESEJADO NA POSICAO %d ", posicao);
+    printf("CADASTRANDO O LIVRO DESEJADO NA POSICAO %d ", posicao);
 
     gotoxy(43,10);
     scanf("%d", &liv.id);
@@ -242,59 +261,137 @@ void inserirPosicao(Lista *l){
 
     l->fim++;
 
+    system("cls");
+    tela();
+
+    limpa_MSG();
+    gotoxy(2,23);
+    printf("O livro foi cadastrado com sucesso!!!");
+    getch();
+
+    system("cls");
+    tela();
+
+    limpa_MSG();
+    gotoxy(2,23);
+    printf("Pressione qualquer tecla para voltar ao menu principal.....");
+
+    getch();
+
+    return;
+
 
 }
 
 void removerLivro(Lista *l){
     
-    system("cls");
-    tela();
-
     int codigo;
     int i;
     int posicao=0;
+    int opcao=0;
+
+    system("cls");
+    tela();
 
     gotoxy(32,6);
     printf("REMOVENDO LIVRO");
 
     limpa_MSG();
-
     gotoxy(2,23);
     printf("Digite o ID do livro que deseja remover: ");
     scanf("%d", &codigo);
 
     posicao = pesquisa(codigo, l);
 
-    system("cls");
-    tela();
+    if(posicao == -1){
 
-    if(posicao < 0 || posicao > l->fim){
+        system("cls");
+        tela();
 
         limpa_MSG();
-
         gotoxy(2,23);
-        printf("O id do livro nao foi encontrado, tente novamente....");
+        printf("O ID do livro nao foi encontrado...");
+        getch();
+
+
+        system("cls");
+        tela();
+
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Pressione qualquer tecla para voltar ao menu principal");
 
         getch();
 
-        limpa_MSG();
 
+        return;
+    }
+
+    system("cls");
+    tela();
+    tela_livro();
+
+    gotoxy(25,6);
+    printf("EXCLUINDO LIVRO %s", l->liv[posicao].titulo);
+
+    gotoxy(43,10);
+    printf("%d", l->liv[posicao].id);
+
+    gotoxy(43,12);
+    printf("%s", l->liv[posicao].titulo);
+
+    gotoxy(43,14);
+    printf("%s", l->liv[posicao].autor);
+
+    gotoxy(43,16);
+    printf("%s", l->liv[posicao].ano);
+
+    limpa_MSG();
+    gotoxy(2,23);
+    printf("Tem certeza que deseja excluir esse livro? (1-Sim, 2-Nao): ");
+    scanf("%d", &opcao);
+
+    if(opcao == 1){
+
+        for(i = posicao; i < l->fim - 1; i++){
+            l->liv[i] = l->liv[i+1];
+        }
+        l->fim--;
+
+        system("cls");
+        tela();
+
+        limpa_MSG();
         gotoxy(2,23);
-        printf("Pressione qualquer tecla para voltar ao menu principal...");
+        printf("O Livro foi excluido com sucesso!");
 
         getch();
 
         system("cls");
         tela();
 
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Pressione qualquer tecla para voltar ao menu principal....");
+
+        getch();
+
+        return;
+
+    } else {
+
+        system("cls");
+        tela();
+
+
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("A exclusao foi cancelada, volte ao menu principal.....");
+
+        getch();
+
         return;
     }
-
-    for(i = posicao; l->fim - 1; i++){
-        l->liv[i] = l->liv[i+1];
-    }
-
-    l->fim--;
 
 }
 
@@ -367,6 +464,7 @@ void buscarLivro(Lista *l){
 
 }
 
+
 int main(){
 
     Lista l;
@@ -389,9 +487,7 @@ int main(){
         gotoxy(23,13);
         printf("4- Buscar livro pelo ID");
         gotoxy(23,14);
-        printf("5- Consultar os livros cadastrados");
-        gotoxy(23,15);
-        printf("6- Sair");
+        printf("5- Sair");
 
         limpa_MSG();
         gotoxy(2,23);
@@ -412,13 +508,11 @@ int main(){
                 buscarLivro(&l);
                 break;
             case 5:
-
-                break;
-            case 6:
-
                 break;
             default:
-
+                limpa_MSG();
+                gotoxy(2,23);
+                printf("Nenhuma opcao valida foi inserida......");
                 break;
         }
 

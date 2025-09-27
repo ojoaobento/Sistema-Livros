@@ -37,14 +37,13 @@ void tela(){
     gotoxy(2, 23);
     printf("MSG:");
 }
-
+// **************************************************************************************************
 void limpa_MSG(){
     
     gotoxy(2,23);
     printf("                                                                         ");
 }
-
-
+// **************************************************************************************************
 void tela_livro(){
 
     gotoxy(10,10);
@@ -59,9 +58,9 @@ void tela_livro(){
     gotoxy(10,16);
     printf("Ano de Lancamento do Livro.....: ");
 }
-
+// **************************************************************************************************
 #define MAX 5
-
+// **************************************************************************************************
 typedef struct{
     int id;
     char titulo[50];
@@ -69,16 +68,14 @@ typedef struct{
     char ano[30];
 }reg_livros;
 
-
+// **************************************************************************************************
 typedef struct{
     int inicio;
     int fim;
     reg_livros liv[MAX];
 }Lista;
-
-
+// **************************************************************************************************
 int pesquisa(int codigo, Lista *l){
-    
     int i;
     
     for(i=l->inicio;i < l->fim;i++){
@@ -86,33 +83,26 @@ int pesquisa(int codigo, Lista *l){
             return i;
         }
     }
-
     return -1;
-
 }
-
+// **************************************************************************************************
 void adicionarLivro(Lista *l){
     reg_livros liv;
     int opcao=0;
 
-
     do {
         if(l->fim >= MAX){
-
             limpa_MSG();
-
             gotoxy(2,23);
             printf("A sua lista esta cheia");
         } else {
 
             system("cls");
-
             tela();
             tela_livro();
 
             gotoxy(32, 6);
             printf("ADICIONANDO LIVRO");
-
 
             gotoxy(43,10);
             scanf("%d", &liv.id);
@@ -132,19 +122,18 @@ void adicionarLivro(Lista *l){
             }
 
             l->liv[l->fim] = liv;
-
             l->fim++;
 
             limpa_MSG();
-
             gotoxy(2,23);
             printf("O livro foi cadastrado com sucesso!!!");
+
             getch();
 
             system("cls");
             tela();
+           
             limpa_MSG();
-
             gotoxy(2,23);
             printf("Deseja inserir outro(1-Sim, 2-Nao): ");
             scanf("%d", &opcao);
@@ -153,12 +142,9 @@ void adicionarLivro(Lista *l){
 
     system("cls");
     tela();
-
     return;
-
 }
-
-
+// **************************************************************************************************
 void inserirPosicao(Lista *l){
     
     reg_livros liv;
@@ -177,22 +163,18 @@ void inserirPosicao(Lista *l){
         getch();
 
         limpa_MSG();
-
         gotoxy(2,23);
         printf("Pressione qualquer tecla para voltar ao menu....");
 
         getch();
-
         system("cls");
         tela();
-
         return;
 
     }
 
     system("cls");
     tela();
-
     limpa_MSG();
 
     do {
@@ -203,22 +185,17 @@ void inserirPosicao(Lista *l){
         scanf("%d", &posicao);
 
         system("cls");
-
         tela();
 
         limpa_MSG();
-
         gotoxy(2,23);
         printf("Tem certeza que vai ser essa posicao(1-Sim, 2-Nao): ");
         scanf("%d", &verificacao);
     
-
     } while(verificacao != 1);
 
     if(posicao < 0 || posicao > l->fim){
-        
         limpa_MSG();
-
         gotoxy(2,23);
         printf("Posicao invalida");
         return;
@@ -230,7 +207,6 @@ void inserirPosicao(Lista *l){
     }
 
     system("cls");
-
     tela();
     tela_livro();
 
@@ -252,9 +228,7 @@ void inserirPosicao(Lista *l){
     fflush(stdin);
     fgets(liv.ano, 50, stdin);
 
-
     l->liv[posicao] = liv;
-
     l->fim++;
 
     system("cls");
@@ -263,8 +237,8 @@ void inserirPosicao(Lista *l){
     limpa_MSG();
     gotoxy(2,23);
     printf("O livro foi cadastrado com sucesso!!!");
-    getch();
 
+    getch();
     system("cls");
     tela();
 
@@ -273,12 +247,10 @@ void inserirPosicao(Lista *l){
     printf("Pressione qualquer tecla para voltar ao menu principal.....");
 
     getch();
-
     return;
 
-
 }
-
+// **************************************************************************************************
 void removerLivro(Lista *l){
     
     int codigo;
@@ -307,9 +279,8 @@ void removerLivro(Lista *l){
         limpa_MSG();
         gotoxy(2,23);
         printf("O ID do livro nao foi encontrado...");
+
         getch();
-
-
         system("cls");
         tela();
 
@@ -318,8 +289,6 @@ void removerLivro(Lista *l){
         printf("Pressione qualquer tecla para voltar ao menu principal");
 
         getch();
-
-
         return;
     }
 
@@ -361,7 +330,6 @@ void removerLivro(Lista *l){
         printf("O Livro foi excluido com sucesso....");
 
         getch();
-
         system("cls");
         tela();
 
@@ -370,7 +338,6 @@ void removerLivro(Lista *l){
         printf("Pressione qualquer tecla para voltar ao menu principal....");
 
         getch();
-
         return;
 
     } else {
@@ -378,18 +345,16 @@ void removerLivro(Lista *l){
         system("cls");
         tela();
 
-
         limpa_MSG();
         gotoxy(2,23);
         printf("A exclusao foi cancelada, volte ao menu principal.....");
 
         getch();
-
         return;
     }
 
 }
-
+// **************************************************************************************************
 void buscarLivro(Lista *l){
     
     int codigo;
@@ -399,7 +364,6 @@ void buscarLivro(Lista *l){
     tela();
 
     limpa_MSG();
-
     gotoxy(2,23);
     printf("Digite o ID do livro que deseja consultar: ");
     scanf("%d", &codigo);
@@ -415,7 +379,6 @@ void buscarLivro(Lista *l){
         gotoxy(32,6);
         printf("CONSULTA LIVRO %d ", l->liv[posicao].id);
 
-
         gotoxy(43,10);
         printf("%d", l->liv[posicao].id);
 
@@ -430,16 +393,16 @@ void buscarLivro(Lista *l){
 
         gotoxy(7,23);
         printf("Realizando Consulta");
-        getch();
 
+        getch();
         system("cls");
         tela();
 
         limpa_MSG();
         gotoxy(2,23);
         printf("Pressione qualquer tecla para voltar ao menu principal....");
-        getch();
 
+        getch();
         return;
 
     } else {
@@ -447,38 +410,32 @@ void buscarLivro(Lista *l){
         tela();
 
         limpa_MSG();
-
         gotoxy(2,23);
         printf("ID do livro nao foi encontrada, tente novamente....");
 
         getch();
-
         system("cls");
         tela();
 
         limpa_MSG();
-
         gotoxy(2,23);
         printf("Pressione qualquer tecla para continuar....");
 
         getch();
-
         return;
     }
 
 }
-
+// **************************************************************************************************
 int main(){
 
     Lista l;
     int opcao=0;
+    l.inicio=0;
+    l.fim=0;
 
     tela();
     system("color 02");
-
-
-    l.inicio=0;
-    l.fim=0;
 
     do {
 
@@ -527,4 +484,6 @@ int main(){
 
 } while(opcao >= 1 && opcao <= 4);
 
+
+    return 0;
 }

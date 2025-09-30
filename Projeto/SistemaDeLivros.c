@@ -92,9 +92,22 @@ void adicionarLivro(Lista *l){
 
     do {
         if(l->fim >= MAX){
+            system("cls");
+            tela();
+
             limpa_MSG();
             gotoxy(2,23);
             printf("A sua lista esta cheia");
+
+            getch();
+
+            system("cls");
+            tela();
+            printf("Pressione qualquer tecla para voltar ao menu principal.....");
+
+            getch();
+
+            return;
         } else {
 
             system("cls");
@@ -257,127 +270,51 @@ void removerLivro(Lista *l){
     int i;
     int posicao=0;
     int opcao=0;
+    int continuar=0;
 
-    system("cls");
-    tela();
-
-    gotoxy(32,6);
-    printf("REMOVENDO LIVRO");
-
-    limpa_MSG();
-    gotoxy(2,23);
-    printf("Digite o ID do livro que deseja remover: ");
-    scanf("%d", &codigo);
-
-    posicao = pesquisa(codigo, l);
-
-    if(posicao == -1){
-
-        system("cls");
-        tela();
-
-        limpa_MSG();
-        gotoxy(2,23);
-        printf("O ID do livro nao foi encontrado...");
-
-        getch();
-        system("cls");
-        tela();
-
-        limpa_MSG();
-        gotoxy(2,23);
-        printf("Pressione qualquer tecla para voltar ao menu principal");
-
-        getch();
-        return;
-    }
-
-    system("cls");
-    tela();
-    tela_livro();
-
-    gotoxy(25,6);
-    printf("EXCLUINDO LIVRO %s", l->liv[posicao].titulo);
-
-    gotoxy(43,10);
-    printf("%d", l->liv[posicao].id);
-
-    gotoxy(43,12);
-    printf("%s", l->liv[posicao].titulo);
-
-    gotoxy(43,14);
-    printf("%s", l->liv[posicao].autor);
-
-    gotoxy(43,16);
-    printf("%s", l->liv[posicao].ano);
-
-    limpa_MSG();
-    gotoxy(2,23);
-    printf("Tem certeza que deseja excluir esse livro? (1-Sim, 2-Nao): ");
-    scanf("%d", &opcao);
-
-    if(opcao == 1){
-
-        for(i = posicao; i < l->fim - 1; i++){
-            l->liv[i] = l->liv[i+1];
-        }
-        l->fim--;
-
-        system("cls");
-        tela();
-
-        gotoxy(2,23);
-        printf("O Livro foi excluido com sucesso....");
-
-        getch();
-        system("cls");
-        tela();
-
-        limpa_MSG();
-        gotoxy(2,23);
-        printf("Pressione qualquer tecla para voltar ao menu principal....");
-
-        getch();
-        return;
-
-    } else {
-
-        system("cls");
-        tela();
-
-        limpa_MSG();
-        gotoxy(2,23);
-        printf("A exclusao foi cancelada, volte ao menu principal.....");
-
-        getch();
-        return;
-    }
-
-}
-// **************************************************************************************************
-void buscarLivro(Lista *l){
     
-    int codigo;
-    int posicao=0;
+    do {
 
-    system("cls");
-    tela();
+        system("cls");
+        tela();
 
-    limpa_MSG();
-    gotoxy(2,23);
-    printf("Digite o ID do livro que deseja consultar: ");
-    scanf("%d", &codigo);
+        gotoxy(32,6);
+        printf("REMOVENDO LIVRO");
 
-    posicao = pesquisa(codigo, l);
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Digite o ID do livro que deseja remover: ");
+        scanf("%d", &codigo);
 
-    if(posicao != -1){
+        posicao = pesquisa(codigo, l);
+
+        if(posicao == -1){
+
+            system("cls");
+            tela();
+
+            limpa_MSG();
+            gotoxy(2,23);
+            printf("O ID do livro nao foi encontrado...");
+
+            getch();
+            system("cls");
+            tela();
+
+            limpa_MSG();
+            gotoxy(2,23);
+            printf("Pressione qualquer tecla para voltar ao menu principal");
+
+            getch();
+            return;
+        }
 
         system("cls");
         tela();
         tela_livro();
 
-        gotoxy(32,6);
-        printf("CONSULTA LIVRO %d ", l->liv[posicao].id);
+        gotoxy(25,6);
+        printf("EXCLUINDO LIVRO %s", l->liv[posicao].titulo);
 
         gotoxy(43,10);
         printf("%d", l->liv[posicao].id);
@@ -391,39 +328,133 @@ void buscarLivro(Lista *l){
         gotoxy(43,16);
         printf("%s", l->liv[posicao].ano);
 
-        gotoxy(7,23);
-        printf("Realizando Consulta");
+        limpa_MSG();
+        gotoxy(2,23);
+        printf("Tem certeza que deseja excluir esse livro? (1-Sim, 2-Nao): ");
+        scanf("%d", &opcao);
 
-        getch();
+        if(opcao == 1){
+
+            for(i = posicao; i < l->fim - 1; i++){
+                l->liv[i] = l->liv[i+1];
+            }
+            l->fim--;
+
+            system("cls");
+            tela();
+
+            gotoxy(2,23);
+            printf("O Livro foi excluido com sucesso....");
+
+            getch();
+
+        } else {
+
+            system("cls");
+            tela();
+
+            gotoxy(7,23);
+            printf("A exclusao foi cancelada.....");
+
+            getch();
+
+        }
+
         system("cls");
         tela();
 
         limpa_MSG();
         gotoxy(2,23);
-        printf("Pressione qualquer tecla para voltar ao menu principal....");
+        printf("Deseja remover outro livro(1-Sim, 2-Nao)? ");
+        scanf("%d", &continuar);
 
-        getch();
-        return;
+    } while(continuar != 2);
 
-    } else {
+    system("cls");
+    tela();
+
+    limpa_MSG();
+    gotoxy(2,23);
+    printf("Pressione qualquqer tecla para voltar ao menu principal....");
+
+    getch();
+    return;
+}
+// **************************************************************************************************
+void buscarLivro(Lista *l){
+    
+    int codigo;
+    int posicao=0;
+    int continuar=0;
+
+    do {
         system("cls");
         tela();
 
         limpa_MSG();
         gotoxy(2,23);
-        printf("ID do livro nao foi encontrada, tente novamente....");
+        printf("Digite o ID do livro que deseja consultar: ");
+        scanf("%d", &codigo);
 
-        getch();
+        posicao = pesquisa(codigo, l);
+
+        
+        if(posicao != -1){
+            
+            system("cls");
+            tela();
+            tela_livro();
+
+            gotoxy(32,6);
+            printf("CONSULTA LIVRO %d ", l->liv[posicao].id);
+
+            gotoxy(43,10);
+            printf("%d", l->liv[posicao].id);
+
+            gotoxy(43,12);
+            printf("%s", l->liv[posicao].titulo);
+
+            gotoxy(43,14);
+            printf("%s", l->liv[posicao].autor);
+
+            gotoxy(43,16);
+            printf("%s", l->liv[posicao].ano);
+
+            gotoxy(7,23);
+            printf("Realizando Consulta");
+
+            getch();
+
+
+        } else {
+            system("cls");
+            tela();
+
+            limpa_MSG();
+            gotoxy(2,23);
+            printf("ID do livro nao foi encontrada, tente novamente....");
+
+            getch();
+            system("cls");
+            tela();
+
+            limpa_MSG();
+            gotoxy(2,23);
+            printf("Pressione qualquer tecla para continuar....");
+
+            getch();
+            return;
+        }
+
         system("cls");
         tela();
 
         limpa_MSG();
         gotoxy(2,23);
-        printf("Pressione qualquer tecla para continuar....");
+        printf("Deseja realizar outra consulta(1-Sim, 2-Nao): ");
+        scanf("%d", &continuar);
 
-        getch();
-        return;
-    }
+    } while(continuar != 2);
 
 }
 // **************************************************************************************************
@@ -443,13 +474,13 @@ int main(){
         printf("MENU PRINCIPAL");
 
         gotoxy(23,10);
-        printf("1- Adicionar livro na biblioteca");
+        printf("1- Adicionar Livro na Biblioteca");
         gotoxy(23,11);
-        printf("2- Inserir livro em uma posicao especifica");
+        printf("2- Inserir o Livro em uma posicao especifica");
         gotoxy(23,12);
-        printf("3- Remover livro por ID");
+        printf("3- Remover Livro da Bliblioteca");
         gotoxy(23,13);
-        printf("4- Buscar livro pelo ID");
+        printf("4- Buscar Livro na Biblioteca");
         gotoxy(23,14);
         printf("5- Finalizar Programa");
 

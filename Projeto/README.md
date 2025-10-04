@@ -1,7 +1,11 @@
-## Projeto
+# Sistema de Livros
 
+**[SistemaLivros.c](SistemaDeLivros.c)**
 
-Em um primeiro desenvolvimento do sistema, implementei uma função de interface visual com o objetivo de facilitar a interação do usuário com o programa. Para isso, utilizei a função gotoxy, responsável por posicionar o cursor do console em coordenadas específicas da tela, permitindo que elementos fossem impressos em locais determinados. A partir dessa função, desenvolvi a função tela, que desenha a estrutura principal do sistema no console, com bordas, linhas e títulos, simulando uma interface organizada. Nela são exibidas informações como o nome do desenvolvedor, o título do sistema e o tipo de lista utilizada, além de uma área reservada para mensagens e interações. Dessa forma, o programa apresenta um layout mais limpo e intuitivo, contribuindo para uma melhor experiência de uso.
+## Interface
+A interface visual do sistema é criada com a função `gotoxy`, responsável por posicionar o cursor do console em coordenadas específicas. Com isso, elementos como títulos, bordas e mensagens podem ser exibidos em locais determinados da tela.  
+
+A função `tela` desenha a estrutura principal do sistema, exibindo o nome do desenvolvedor, o título do sistema, o tipo de lista utilizada e uma área reservada para mensagens. 
 
 `````c
 void gotoxy(int x, int y){
@@ -40,8 +44,15 @@ void tela(){
 }
 `````
 
+Exemplo da tela visual:
 
-Após isso, realizei a estruturação dos dados do sistema, definindo inicialmente uma constante MAX com valor 5, que representa o tamanho máximo da lista, ou seja, a quantidade de livros que poderão ser armazenados. Em seguida, criei a estrutura reg_livros, responsável por armazenar as informações de cada livro, contendo os campos id, titulo, autor e ano, permitindo assim o registro individual de cada item. Logo depois, desenvolvi a estrutura Lista, que agrupa os registros de livros em um vetor fixo de tamanho MAX e mantém o controle dos índices inicio e fim, utilizados para gerenciar a inserção e a remoção dos elementos. Dessa forma, a estrutura do programa foi organizada para permitir o armazenamento, manipulação e acesso eficiente aos dados cadastrados.
+![Evidencia 1](Tela.png)
+
+## Estrutura de Dados
+
+Para armazenar os livros, inicialmente foi definida a constante ``MAX`` com valor 5, que representa o tamanho máximo da lista. Cada livro é representado pela struct ``reg_livros``, contendo os campos ``id``, ``titulo``, ``autor`` e ``ano``.
+
+A struct Lista agrupa os registros de livros em um vetor fixo de tamanho ``MAX`` e mantém o controle dos índices inicio e fim, utilizados para gerenciar a inserção e remoção dos elementos.
 
 `````c
 
@@ -62,7 +73,9 @@ typedef struct{
 
 `````
 
-Após esse primeiro momento, realizei a estrutura inicial da função main, onde foi desenvolvido o menu principal do sistema utilizando a estrutura de controle switch. Primeiramente, foi criada uma variável do tipo Lista, chamada l, responsável por armazenar os livros cadastrados. Em seguida, os índices inicio e fim foram inicializados com zero, garantindo que a lista começasse vazia. A função tela() foi chamada para exibir a interface gráfica do sistema, e o comando system("color 02") foi utilizado para alterar a cor do texto no console, deixando a aparência mais agradável. Dentro de um laço do...while, o menu principal é exibido na tela por meio da função gotoxy, apresentando as opções de adicionar, inserir em posição específica, remover, buscar e finalizar o programa. Após o usuário digitar sua escolha, o switch direciona o fluxo para a função correspondente a cada operação, manipulando os dados da lista conforme necessário. Caso uma opção inválida seja informada, o sistema limpa a tela e exibe uma mensagem de erro, mantendo a interação dinâmica e organizada.
+## Menu Principal
+
+A função main contém o menu principal, exibido com a função ``tela()`` e posicionado com ``gotoxy``. O usuário pode escolher entre adicionar livros, inserir em posições específicas, remover, buscar ou finalizar o programa.
 
 `````c
     Lista l;
@@ -124,11 +137,10 @@ Após esse primeiro momento, realizei a estrutura inicial da função main, onde
     return 0;
 `````
 
-Com isso em mente, comecei a desenvolver as funções responsáveis pelas operações do sistema, iniciando pela função adicionarLivro. Essa função tem como objetivo inserir novos registros na lista de livros, permitindo que o usuário cadastre cada obra individualmente. Inicialmente, é criada uma variável do tipo reg_livros, que armazena temporariamente as informações do livro a ser adicionado, e uma variável inteira opcao, usada para controlar a repetição do processo.
+## Funções do Sistema
+#### 1. Adicionar Livro
 
-Dentro do laço do...while, a função verifica se a lista está cheia, comparando o valor de fim com o limite máximo definido por MAX. Caso a lista já esteja completa, o sistema exibe uma mensagem informando que não é possível adicionar novos livros e retorna ao menu principal. Caso contrário, o programa limpa a tela, redesenha a interface com tela() e tela_livro(), e solicita ao usuário os dados do livro — como o identificador (id), título, autor e ano — posicionando o cursor adequadamente com gotoxy.
-
-Após o preenchimento dos campos, as informações são armazenadas na posição indicada por l->fim, e o contador fim é incrementado, atualizando o número de elementos da lista. Em seguida, uma mensagem de confirmação é exibida informando que o livro foi cadastrado com sucesso. O usuário então é questionado se deseja inserir outro livro, e, caso opte por continuar, o processo se repete. Ao final, a tela é novamente limpa e o programa retorna ao menu principal, garantindo uma navegação clara e organizada.
+Insere novos registros no final da lista. Verifica se a lista está cheia, coleta os dados do usuário e atualiza o contador fim..
 
 
 `````c
@@ -206,13 +218,9 @@ void adicionarLivro(Lista *l){
 }
 `````
 
-Após isso, iniciei a criação da função inserirPosicao, responsável por permitir que o usuário adicione um novo livro em uma posição específica dentro da lista. Diferente da função adicionarLivro, que insere sempre no final, essa função oferece maior flexibilidade, possibilitando reorganizar os elementos conforme a necessidade.
+#### 2. Inserir em Posição Específica
 
-Logo no início, é feita uma verificação para identificar se a lista está vazia, comparando os valores de inicio e fim. Caso não haja livros cadastrados, o sistema informa o usuário e retorna ao menu principal, evitando erros de manipulação. Em seguida, o programa solicita ao usuário a posição onde deseja inserir o novo livro e pede uma confirmação para garantir que a escolha seja intencional.
-
-Se a posição digitada for inválida — isto é, menor que zero ou maior que o número atual de elementos (fim) —, uma mensagem de erro é exibida e a função é encerrada. Caso contrário, o sistema realiza um deslocamento dos elementos da lista, movendo todos os registros a partir do final até a posição desejada, abrindo espaço para a nova inserção.
-
-Depois disso, é feita a coleta dos dados do novo livro (id, título, autor e ano), e as informações são armazenadas na posição escolhida. O contador fim é incrementado, atualizando o total de elementos cadastrados. Por fim, uma mensagem de sucesso é exibida, informando que o livro foi adicionado corretamente, e o sistema retorna ao menu principal, mantendo a interface organizada e funcional.
+Permite adicionar um livro em uma posição escolhida, deslocando os elementos existentes para abrir espaço. Valida se a posição é válida e se a lista não está vazia.
 
 `````c
 void inserirPosicao(Lista *l){
@@ -322,13 +330,9 @@ void inserirPosicao(Lista *l){
 }
 `````
 
-Nesse viés, a função removerLivro ficou responsável por realizar a exclusão de um livro previamente cadastrado na lista, a partir do seu identificador (ID). Inicialmente, são declaradas variáveis auxiliares para armazenar o código digitado pelo usuário, a posição do livro dentro da lista, e opções de confirmação e repetição do processo.
+#### 3. Remover Livro
 
-Dentro de um laço do...while, o sistema limpa a tela e exibe a interface com o título “REMOVENDO LIVRO”. Em seguida, solicita ao usuário o ID do livro que deseja excluir e utiliza a função pesquisa para localizar sua posição no vetor. Caso o ID informado não seja encontrado, o programa exibe uma mensagem informando que o livro não foi localizado e retorna ao menu principal, evitando falhas na manipulação dos dados.
-
-Quando o livro é encontrado, o sistema exibe suas informações — como ID, título, autor e ano — para que o usuário possa confirmar se realmente deseja removê-lo. Se a opção escolhida for “1” (Sim), é executado um laço que desloca os elementos seguintes uma posição para trás, sobrescrevendo o registro removido e garantindo que não haja espaços vazios na lista. Em seguida, o contador fim é decrementado, atualizando a quantidade total de livros armazenados.
-
-Caso o usuário opte por não realizar a exclusão, o sistema apenas exibe uma mensagem informando que a operação foi cancelada. Após o término de cada remoção (ou cancelamento), o programa pergunta se o usuário deseja excluir outro livro. Se a resposta for negativa, o laço é encerrado e o sistema retorna ao menu principal. Dessa forma, a função garante o controle seguro e interativo da exclusão de registros dentro da lista estática.
+Exclui um livro pelo seu ID. Após localizar a posição do livro na lista, o sistema pede confirmação, remove o registro e atualiza o índice fim.
 
 `````c
 void removerLivro(Lista *l){
@@ -449,11 +453,9 @@ void removerLivro(Lista *l){
 }
 `````
 
-Por fim, foi desenvolvida a função buscarLivro, que permite ao usuário consultar informações de um livro específico na lista a partir do seu ID. Essa função se apoia na função auxiliar pesquisa, que percorre o vetor de livros comparando o código informado com o campo id de cada registro. Se o livro for encontrado, a função retorna sua posição no vetor; caso contrário, retorna -1, indicando que o registro não existe.
+#### 4. Buscar Livro
 
-Na função buscarLivro, dentro de um laço do...while, o programa limpa a tela e exibe a interface principal antes de solicitar ao usuário que digite o ID do livro que deseja consultar. Utilizando a função pesquisa, é verificada a existência do livro na lista. Se o registro for localizado, suas informações — como ID, título, autor e ano — são exibidas em tela organizada, permitindo que o usuário confirme os dados.
-
-Se o ID informado não corresponder a nenhum livro cadastrado, o sistema exibe mensagens de alerta informando que o livro não foi encontrado e retorna à tela principal, garantindo uma navegação segura e sem erros. Ao final de cada consulta, o programa pergunta se o usuário deseja realizar outra pesquisa; caso contrário, encerra o laço e retorna ao menu principal. Assim, a função buscarLivro fornece uma forma eficiente e interativa de acessar os dados armazenados na lista.
+Consulta um livro pelo ID, exibindo suas informações de forma organizada. Utiliza a função auxiliar pesquisa para localizar a posição do livro no vetor.
 
 `````c
 
@@ -545,3 +547,11 @@ void buscarLivro(Lista *l){
 
 }
 ``````
+
+## Como Executar
+
+1. Compile o projeto usando um compilador C (GCC, Visual Studio, etc.).
+
+2. Execute o programa no console.
+
+3. Interaja com o menu principal para adicionar, remover ou consultar livros.

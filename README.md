@@ -10,13 +10,6 @@ Este projeto consiste em um sistema de gerenciamento de livros desenvolvido em C
 - Consultar informações de um livro pelo ID.
 - Interface em console com layout organizado usando `gotoxy`.
 
-## Estrutura do Projeto
-
-- `main.c`: contém a função principal e o menu do sistema.
-- `funcoes.c` / `funcoes.h`: funções para adicionar, inserir, remover e buscar livros.
-- Lista estática com limite máximo de livros definido por `MAX`.
-
-
 ## Projeto
 
 [Projeto](./Projeto/README.md)

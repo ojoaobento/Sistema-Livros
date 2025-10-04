@@ -513,7 +513,7 @@ int main(){
                 break;
         }
 
-} while(opcao >= 1 && opcao <= 4);
+    } while(opcao >= 1 && opcao <= 4);
 
 
     return 0;
